@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  phoenix:
+    build: .
+    volumes:
+      - ./src:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      # Variables to connect to our Postgres server.
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: globi_dev
+      PGPORT: 5432
+      # Hostname of our Postgres container.
+      PGHOST: db
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+# Define the volumes.
+volumes:
+   pgdata:
