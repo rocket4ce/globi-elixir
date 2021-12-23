@@ -79,6 +79,7 @@ defmodule GlobiWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
     get "/secured_page", PageController, :secure
+    resources "/posts", PostController
   end
 
   scope "/", GlobiWeb do
